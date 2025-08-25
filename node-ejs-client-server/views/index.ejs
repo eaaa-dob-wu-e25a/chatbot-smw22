@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Awesome Server!</title>
+  </head>
+  <body>
+    <form method="POST" action="/submit">
+      <input type="text" name="name" placeholder="Please enter your name" />
+      <input type="number" name="age" placeholder="Please enter your age" />
+      <% if (error) { %>
+      <p style="color: red"><%= error %></p>
+      <% } %>
+      <button type="submit">Send</button>
+    </form>
+
+    <% if (name) { %>
+    <h1>Hello <%= name %> (<%= age %> år) 👋</h1>
+    <% } %>
+
+    <ul>
+      <% names.forEach(n => { %>
+      <li><%= n %></li>
+      <% }) %>
+    </ul>
+  </body>
+</html>

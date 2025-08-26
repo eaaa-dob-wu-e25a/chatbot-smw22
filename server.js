@@ -10,6 +10,9 @@ app.set("view engine", "ejs");
 // For parsing application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
+// Serve static files from the "css" directory at the "/style" route
+app.use(express.static("public"));
+
 // names array
 const names = [];
 

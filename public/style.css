@@ -1,3 +1,122 @@
+@import url("https://fonts.googleapis.com/css2?family=Asimovian&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  background-color: red;
+  background-color: #282c34;
+}
+
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #282c34;
+  border-radius: 8px;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+.title {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.title img {
+  width: 75px;
+}
+
+h1 {
+  color: white;
+  font-family: "Asimovian", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+form {
+  width: 100%;
+}
+
+.input-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.input-row input {
+  flex: 1;
+  margin-top: 0;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  background-color: #4e4e4e;
+  color: white;
+}
+
+.input-row input:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgb(81, 91, 238);
+}
+
+.send-button {
+  background: white;
+  border: none;
+  border-radius: 4px;
+  margin-left: 8px;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.send-button img {
+  width: 16px;
+  height: 16px;
+}
+
+.remove-button {
+  width: 100%;
+  background: rgb(212, 0, 0);
+  border: 0;
+  border-radius: 4px;
+  margin-top: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  color: white;
+  font-size: 12px;
+}
+
+.chat-messages {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.message.bruger {
+  text-align: right;
+  background-color: #4e4e4e;
+  color: white;
+  border-radius: 5px;
+  width: fit-content;
+  margin-left: auto;
+  font-size: 12px;
+}
+
+.message.bot {
+  text-align: left;
+  color: white;
+  font-size: 12px;
 }

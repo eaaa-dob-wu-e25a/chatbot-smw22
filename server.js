@@ -1,5 +1,6 @@
-// Import express framework
 import express from "express";
+import responses from "./views/responses.js";
+import { sanitizeInput } from "./helpers/input-helpers.js";
 
 // Create an instance of express
 const app = express();
@@ -13,45 +14,8 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files from the "css" directory at the "/style" route
 app.use(express.static("public"));
 
-//Chatbot responses
-const responses = [
-  {
-    keywords: ["hej", "hello", "hi"],
-    answers: ["Hej med dig! 😄", "Hello there! 🤙", "Hej! Hvordan går det? 🤞"],
-  },
-  {
-    keywords: ["hvordan går det", "hvordan har du det"],
-    answers: ["Jeg har det fint, tak! 😊", "Det går godt med mig! 😁"],
-  },
-  {
-    keywords: ["farvel", "bye", "ses"],
-    answers: ["Farvel! 👋", "Vi ses! 👋", "Tak for snakken! 👋"],
-  },
-  {
-    keywords: ["hjælp", "help"],
-    answers: [
-      "Jeg kan hjælpe dig med at chatte! 💬",
-      "Spørg mig om hvad som helst! 💬",
-    ],
-  },
-];
-
 // Dette array gemmer alle chatbeskeder
 const messages = [];
-
-// Sanitering af input for at forhindre XSS
-function sanitizeInput(input) {
-  if (typeof input !== "string") return "";
-
-  return input
-    .replace(/[<>]/g, "") // Fjerner < og > (forebygger HTML-tags)
-    .replace(/["'`()]/g, "") // Fjerner potentielt farlige tegn
-    .replace(/javascript:/gi, "") // Fjerner javascript: links
-    .replace(/script/gi, "") // Fjerner "script" ord
-    .slice(0, 500) // Begræns længde til 500 tegn
-    .replace(/on\w+=/gi, "") // Fjerner event handlers som onclick=
-    .trim(); // Fjerner whitespace i start og slut
-}
 
 app.get("/", (req, res) => {
   res.render("index", { messages, botReply: "" });
@@ -87,16 +51,38 @@ app.post("/chat", (req, res) => {
 
     // Loop gennem alle response objekter
     for (let response of responses) {
-      // Tjek om nogen keywords matcher
-      for (let keyword of response.keywords) {
-        if (lowerMessage.includes(keyword)) {
-          // Vælg et tilfældigt svar fra answers array
-          const randomIndex = Math.floor(
-            Math.random() * response.answers.length
-          );
-          botReply = response.answers[randomIndex];
+      // Tjek om temaet er "specific" til at matche med det præcist svar
+      if (response.mode === "specific") {
+        const exactMatch = response.answers.find(
+          (ans) => ans.value === lowerMessage
+        );
+        if (exactMatch) {
+          botReply = exactMatch.text;
           foundResponse = true;
           break;
+        }
+        for (let keyword of response.keywords) {
+          if (lowerMessage.includes(keyword)) {
+            const fallbackAnswer =
+              response.answers.find((ans) => ans.mood === "friendly") ||
+              response.answers[0];
+            botReply = fallbackAnswer.text;
+            foundResponse = true;
+            break;
+          }
+        }
+      } else {
+        // Tjek om nogen keywords matcher og give et random svar
+        for (let keyword of response.keywords) {
+          if (lowerMessage.includes(keyword)) {
+            // Vælg et tilfældigt svar fra answers array
+            const randomIndex = Math.floor(
+              Math.random() * response.answers.length
+            );
+            botReply = response.answers[randomIndex];
+            foundResponse = true;
+            break;
+          }
         }
       }
       if (foundResponse) break;

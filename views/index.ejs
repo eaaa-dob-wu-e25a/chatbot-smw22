@@ -16,13 +16,16 @@
       <div class="chat-messages">
         <% messages.forEach(msg => { %>
         <div class="message <%= msg.sender.toLowerCase() %>">
-          <strong><%= msg.sender %>:</strong> <%= msg.text %>
+          <p class="timestamp"><%= msg.time %></p>
+          <p class="text">
+            <strong><%= msg.sender %>:</strong> <%= msg.text %>
+          </p>
         </div>
         <% }) %>
       </div>
 
-      <form method="POST" action="/chat">
-        <div class="input-row">
+      <div class="chat-row">
+        <form method="POST" action="/chat" class="chat-form">
           <input
             type="text"
             name="message"
@@ -30,27 +33,51 @@
             required
           />
           <button type="submit" class="send-button">
-            <img src="/icons/arrow-right.svg" alt="Home" />
+            <img src="/icons/arrow.svg" alt="Send" />
           </button>
-        </div>
-      </form>
+        </form>
 
-      <form action="/chat/clear" method="POST">
-        <button type="submit" class="remove-button">Ryd Chatten</button>
-      </form>
+        <form action="/chat/clear" method="POST" class="clear-form">
+          <button type="submit" class="remove-button">
+            <img src="/icons/trash.svg" alt="Clear" />
+          </button>
+        </form>
+      </div>
 
-      <% if (typeof err1or !== 'undefined' && error) { %>
-      <div
-        class="error-message"
-        style="
-          color: red;
-          background: #ffe6e6;
-          padding: 10px;
-          margin: 10px 0;
-          border-radius: 5px;
-        "
-      >
-        <strong>Fejl:</strong> <%= error %>
+      <% if (typeof error !== 'undefined' && error) { %>
+      <div class="error-message"><strong>Fejl:</strong> <%= error %></div>
+      <% } %>
+
+      <!-- Lær botten noget nyt -->
+      <section class="teach-bot">
+        <h3>Lær botten noget nyt</h3>
+        <form method="POST" action="/add-response">
+          <input
+            type="text"
+            name="keyword"
+            placeholder="Nøgleord (fx 'kage')"
+            required
+          />
+          <input
+            type="text"
+            name="answer"
+            placeholder="Svar (fx 'Jeg elsker chokoladekage!')"
+            required
+          />
+          <button type="submit" class="add-button">
+            <img src="/icons/plus.svg" alt="Add" />
+          </button>
+        </form>
+      </section>
+
+      <% if (typeof responseError !== 'undefined' && responseError) { %>
+      <div class="error-message">
+        <strong>Fejl:</strong> <%= responseError %>
+      </div>
+      <% } %> <% if (typeof responseSuccess !== 'undefined' && responseSuccess)
+      { %>
+      <div class="success-message">
+        <strong>Succes:</strong> <%= responseSuccess %>
       </div>
       <% } %>
     </div>

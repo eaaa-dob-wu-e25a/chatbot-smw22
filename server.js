@@ -1,6 +1,11 @@
 import express from "express";
 import responses from "./views/responses.js";
-import { sanitizeInput } from "./helpers/input-helpers.js";
+import {
+  sanitizeMessageInput,
+  sanitizeKeywordInput,
+  sanitizeAnswerInput,
+} from "./helpers/input-helpers.js";
+import e from "express";
 
 // Create an instance of express
 const app = express();
@@ -26,7 +31,7 @@ app.post("/chat", (req, res) => {
   const inputMessage = req.body.message;
 
   // Sanitér input
-  const userMessage = sanitizeInput(req.body.message);
+  const userMessage = sanitizeMessageInput(req.body.message);
 
   let botReply = "";
   let error = "";
@@ -95,8 +100,18 @@ app.post("/chat", (req, res) => {
 
     // Gem beskederne kun hvis der ikke er fejl
     if (!error) {
-      messages.push({ sender: "Bruger", text: userMessage });
-      messages.push({ sender: "Bot", text: botReply });
+      messages.push({
+        sender: "Bruger",
+        text: userMessage,
+        time: new Date().toLocaleString("da-DK"),
+        timestamp: new Date(),
+      });
+      messages.push({
+        sender: "Bot",
+        text: botReply,
+        time: new Date().toLocaleString("da-DK"),
+        timestamp: new Date(),
+      });
     }
   }
 
@@ -106,6 +121,50 @@ app.post("/chat", (req, res) => {
 app.post("/chat/clear", (req, res) => {
   messages.length = 0; // Tøm arrayet
   res.redirect("/"); // Redirect tilbage til hovedsiden
+});
+
+app.post("/add-response", (req, res) => {
+  const keyword = sanitizeKeywordInput(req.body.keyword);
+  const answer = sanitizeAnswerInput(req.body.answer);
+
+  let responseError = "";
+  let responseSuccess = "";
+
+  if (!keyword || keyword.length < 2) {
+    responseError = "Nøgleord skal være mindst 2 tegn og kun bogstaver!";
+  } else if (!answer || answer.length < 6) {
+    responseError = "Svaret skal være mindst 6 tegn!";
+  } else if (keyword.length < 2) {
+    responseError = "Nøgleord skal være mindst 2 tegn!";
+  } else if (keyword.length > 50) {
+    responseError = "Nøgleord må maksimalt være 50 tegn!";
+  } else if (answer.length > 200) {
+    responseError = "Svaret må maksimalt være 200 tegn!";
+  } else if (keyword.includes(" ")) {
+    responseError = "Nøgleord må ikke indeholde mellemrum!";
+  } else {
+    const lowerKeyword = keyword.toLowerCase();
+
+    // Tjek for duplikat nøgleord
+    for (let response of responses) {
+      if (response.keywords.includes(lowerKeyword)) {
+        responseError = "Dette nøgleord findes allerede!";
+        break;
+      }
+    }
+
+    if (!responseError) {
+      responseSuccess = "Dit nøgleord og svar er blevet tilføjet!";
+      responses.push({
+        keywords: [lowerKeyword],
+        answers: [answer],
+      });
+    }
+
+    console.log(responses);
+  }
+
+  res.render("index", { responses, messages, responseSuccess, responseError });
 });
 
 // Listen on port 3000

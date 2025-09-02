@@ -2,6 +2,7 @@
 const responses = [
   // Tak
   {
+    category: "tak",
     mode: "specific",
     keywords: ["tak", "mange tak", "tusind tak"],
     answers: [
@@ -16,6 +17,7 @@ const responses = [
   },
   // Rejser og steder
   {
+    category: "rejser",
     keywords: ["rejse", "ferie", "by", "land", "hotel", "strand", "tur"],
     answers: [
       "Rejser åbner verden! Hvilket land vil du helst besøge?",
@@ -25,8 +27,20 @@ const responses = [
       "At rejse er at leve – sagde H.C. Andersen engang! 🌍✈️",
     ],
   },
+  {
+    category: "mad",
+    keywords: ["mad", "spise", "restaurant", "ret", "køkken", "måltid"],
+    answers: [
+      "Mad er livets krydderi! Hvad er din yndlingsret?",
+      "Jeg elsker at høre om mad! Hvad kan du bedst lide?",
+      "Er du mere til sødt eller salt?",
+      "Hvilket køkken er din favorit – italiensk, mexisk, asiatisk?",
+      "Mad bringer folk sammen – har du en favorit restaurant?",
+    ],
+  },
   // Dyr
   {
+    category: "dyr",
     keywords: ["hund", "kat", "dyr", "fugl", "kanin", "kæledyr"],
     answers: [
       "Dyr giver så meget glæde! Har du et kæledyr?",
@@ -38,6 +52,7 @@ const responses = [
   },
   // Skole og arbejde
   {
+    category: "arbejde",
     keywords: ["skole", "arbejde", "studie", "lære", "opgave", "job"],
     answers: [
       "Det lyder som du har travlt! Er det spændende?",
@@ -49,6 +64,7 @@ const responses = [
   },
   // Teknologi
   {
+    category: "teknologi",
     keywords: ["computer", "internet", "telefon", "teknologi", "AI", "robot"],
     answers: [
       "Teknologi udvikler sig hurtigt – spændende, ikke?",
@@ -60,6 +76,7 @@ const responses = [
   },
   // Humor og sjov
   {
+    category: "humor",
     keywords: ["joke", "vittighed", "sjov", "grine", "latter"],
     answers: [
       "Vil du høre en lille joke? 😄",
@@ -71,6 +88,7 @@ const responses = [
   },
   // Søvn og afslapning
   {
+    category: "søvn",
     keywords: ["sove", "træt", "søvn", "slappe af", "hvile"],
     answers: [
       "Søvn er så vigtigt for kroppen! Får du nok?",
@@ -82,6 +100,7 @@ const responses = [
   },
   // Fremtid og drømme
   {
+    category: "fremtid",
     keywords: ["drøm", "fremtid", "mål", "plan", "ønske"],
     answers: [
       "Det er spændende at tænke på fremtiden! Hvad drømmer du om?",
@@ -93,6 +112,7 @@ const responses = [
   },
   // Musik
   {
+    category: "musik",
     keywords: ["musik", "sang", "lytte", "band", "koncert", "melodi"],
     answers: [
       "Musik kan virkelig ændre stemningen! Hvad lytter du mest til?",
@@ -104,6 +124,7 @@ const responses = [
   },
   // Sport
   {
+    category: "sport",
     keywords: ["sport", "fodbold", "løb", "basketball", "træning", "fitness"],
     answers: [
       "Sport holder kroppen sund og stærk! Dyrker du noget sport?",
@@ -115,6 +136,7 @@ const responses = [
   },
   // Sundhed
   {
+    category: "sundhed",
     keywords: ["sundhed", "kost", "træning", "energi", "meditere", "motion"],
     answers: [
       "At passe på sin krop er super vigtigt! Hvordan gør du?",
@@ -126,6 +148,7 @@ const responses = [
   },
   // Venskab
   {
+    category: "venskab",
     keywords: ["ven", "venner", "venskab", "kammerat", "fællesskab"],
     answers: [
       "Venner gør livet meget bedre 💙 Har du en bedste ven?",
@@ -137,6 +160,7 @@ const responses = [
   },
   // Tid og dage
   {
+    category: "tid",
     keywords: ["tid", "dato", "uge", "måned", "år", "dag", "kalender"],
     answers: [
       "Tiden flyver, når man hygger sig ⏳",
@@ -148,6 +172,7 @@ const responses = [
   },
   // Livsfilosofi
   {
+    category: "filosofi",
     keywords: ["liv", "mening", "lykke", "kærlighed", "eksistens", "filosofi"],
     answers: [
       "Livets mening kan være forskellig for alle – hvad er din?",
@@ -159,6 +184,7 @@ const responses = [
   },
   // Hilsner
   {
+    category: "hilsen",
     keywords: ["hej", "hello", "hi"],
     answers: [
       "Hej med dig! 😄",
@@ -171,16 +197,19 @@ const responses = [
   },
   // Spørgsmål om velbefindende
   {
+    category: "velbefindende",
     keywords: ["hvordan går det", "hvordan har du det"],
     answers: ["Jeg har det fint, tak! 😊", "Det går godt med mig! 😁"],
   },
   // Farvel
   {
+    category: "farvel",
     keywords: ["farvel", "bye", "ses"],
     answers: ["Farvel! 👋", "Vi ses! 👋", "Tak for snakken! 👋"],
   },
   // Hjælp
   {
+    category: "hjælp",
     keywords: ["hjælp", "help"],
     answers: [
       "Jeg kan hjælpe dig med at chatte! 💬",

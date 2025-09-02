@@ -149,8 +149,22 @@ form {
   margin-bottom: 2px;
 }
 
-.message .text strong {
-  font-size: 10px;
+.message .category {
+  font-size: 8px;
+  padding: 0 2px;
+  background-color: #1a568f;
+}
+
+.message .text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0;
+}
+
+.message .text img {
+  width: 25px;
+  height: auto;
 }
 
 .error-message {

@@ -8,45 +8,52 @@
   </head>
   <body>
     <div class="container">
-      <div class="title">
-        <h1>Blue Lizard</h1>
-        <img src="/img/blue-lizard.png" alt="blue-lizard" />
-      </div>
-
-      <div class="chat-messages">
-        <% messages.forEach(msg => { %>
-        <div class="message <%= msg.sender.toLowerCase() %>">
-          <p class="timestamp"><%= msg.time %></p>
-          <p class="text">
-            <strong><%= msg.sender %>:</strong> <%= msg.text %>
-          </p>
+      <section>
+        <div class="title">
+          <h1>Blue Lizard</h1>
+          <img src="/img/blue-lizard.png" alt="blue-lizard" />
         </div>
-        <% }) %>
-      </div>
 
-      <div class="chat-row">
-        <form method="POST" action="/chat" class="chat-form">
-          <input
-            type="text"
-            name="message"
-            placeholder="Skriv din besked her"
-            required
-          />
-          <button type="submit" class="send-button">
-            <img src="/icons/arrow.svg" alt="Send" />
-          </button>
-        </form>
+        <div class="chat-messages">
+          <% messages.forEach(msg => { %>
+          <div class="message <%= msg.sender.toLowerCase() %>">
+            <p class="timestamp"><%= msg.time %></p>
+            <% if (msg.category) { %>
+            <span class="category"><%= msg.category %></span>
+            <% } %> <% if (msg.sender === "Bot") { %>
+            <p class="text">
+              <img src="/img/lizard-favicon.png" alt="chatbot icon" /> <%=
+              msg.text %>
+            </p>
+            <% } else { %>
+            <strong><%= msg.sender %>:</strong> <%= msg.text %> <% } %>
+          </div>
+          <% }) %>
+        </div>
 
-        <form action="/chat/clear" method="POST" class="clear-form">
-          <button type="submit" class="remove-button">
-            <img src="/icons/trash.svg" alt="Clear" />
-          </button>
-        </form>
-      </div>
+        <div class="chat-row">
+          <form method="POST" action="/chat" class="chat-form">
+            <input
+              type="text"
+              name="message"
+              placeholder="Skriv din besked her"
+              required
+            />
+            <button type="submit" class="send-button">
+              <img src="/icons/arrow.svg" alt="Send" />
+            </button>
+          </form>
 
-      <% if (typeof error !== 'undefined' && error) { %>
-      <div class="error-message"><strong>Fejl:</strong> <%= error %></div>
-      <% } %>
+          <form action="/chat/clear" method="POST" class="clear-form">
+            <button type="submit" class="remove-button">
+              <img src="/icons/trash.svg" alt="Clear" />
+            </button>
+          </form>
+        </div>
+        <% if (typeof error !== 'undefined' && error) { %>
+        <div class="error-message"><strong>Fejl:</strong> <%= error %></div>
+        <% } %>
+      </section>
 
       <!-- Lær botten noget nyt -->
       <section class="teach-bot">
@@ -68,18 +75,18 @@
             <img src="/icons/plus.svg" alt="Add" />
           </button>
         </form>
+        <!-- error og success beskeder -->
+        <% if (typeof responseError !== 'undefined' && responseError) { %>
+        <div class="error-message">
+          <strong>Fejl:</strong> <%= responseError %>
+        </div>
+        <% } %> <% if (typeof responseSuccess !== 'undefined' &&
+        responseSuccess) { %>
+        <div class="success-message">
+          <strong>Succes:</strong> <%= responseSuccess %>
+        </div>
+        <% } %>
       </section>
-
-      <% if (typeof responseError !== 'undefined' && responseError) { %>
-      <div class="error-message">
-        <strong>Fejl:</strong> <%= responseError %>
-      </div>
-      <% } %> <% if (typeof responseSuccess !== 'undefined' && responseSuccess)
-      { %>
-      <div class="success-message">
-        <strong>Succes:</strong> <%= responseSuccess %>
-      </div>
-      <% } %>
     </div>
   </body>
 </html>

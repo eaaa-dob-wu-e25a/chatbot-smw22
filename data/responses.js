@@ -9,7 +9,7 @@ const responses = [
       { value: "tak", text: "Det var så lidt.", mood: "normal" },
       {
         value: "mange tak",
-        text: "Jeg er altid her for at hjælpe 😄",
+        text: "Jeg er altid her for at hjælpe! 😄",
         mood: "friendly",
       },
       { value: "tusind tak", text: "Ingen problem! 😁", mood: "cool" },

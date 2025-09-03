@@ -94,7 +94,7 @@ const responses = [
       "Søvn er så vigtigt for kroppen! Får du nok?",
       "Det er dejligt at kunne slappe af efter en lang dag.",
       "Har du en god rutine for at falde i søvn?",
-      "Jeg behøver ikke sove – jeg kan chatte hele natten 😴🤖",
+      "Jeg behøver ikke sove, jeg kan chatte hele natten 😴🤖",
       "Hvile er en superkraft, mange glemmer at bruge!",
     ],
   },

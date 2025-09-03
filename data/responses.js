@@ -185,7 +185,7 @@ const responses = [
   // Hilsner
   {
     category: "hilsen",
-    keywords: ["hej", "hello", "hi"],
+    keywords: ["hej", "hello", "hi", "hejsa", "goddag"],
     answers: [
       "Hej med dig! 😄",
       "Hello there! 🤙",

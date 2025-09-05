@@ -1,6 +1,7 @@
 import express from "express";
 import { chatLogic } from "./controllers/chatLogic.js";
 import { addResponse } from "./controllers/responseLogic.js";
+import { messages } from "./data/messages.js";
 
 // Create an instance of express
 const app = express();
